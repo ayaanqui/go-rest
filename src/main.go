@@ -10,6 +10,7 @@ import (
 
 func main() {
 	http.HandleFunc("/", routes.Home)
+	http.HandleFunc("/post", routes.Post)
 
 	const port = "3001"
 	fmt.Printf("Starting server at port %s...\n", port)
