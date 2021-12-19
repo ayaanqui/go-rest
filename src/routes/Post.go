@@ -13,11 +13,6 @@ func Post(w http.ResponseWriter, r *http.Request) {
 		utils.JsonResponse(w, types.Response{Message: "Method not allowed"})
 		return
 	}
-
-	if err := r.ParseForm(); err != nil {
-		utils.JsonResponse(w, types.Response{Message: "Could not parse body"})
-		return
-	}
 	
 	person := types.Person{}
 	if err := json.NewDecoder(r.Body).Decode(&person); err != nil {
