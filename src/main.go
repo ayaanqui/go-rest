@@ -9,12 +9,14 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/", routes.Home)
-	http.HandleFunc("/post", routes.Post)
+	server := http.NewServeMux()
+	server.HandleFunc("/", routes.Home)
+	server.HandleFunc("/post", routes.Post)
 
 	const port = "3001"
 	fmt.Printf("Starting server at port %s...\n", port)
-	if err := http.ListenAndServe(":" + port, nil); err != nil {
+
+	if err := http.ListenAndServe(":" + port, server); err != nil {
 		log.Fatalf("Server already started on port %s\n\n", port)
 		log.Fatal(err)
 	}
