@@ -21,15 +21,12 @@ func main() {
 	// Create app base with DB connection
 	app := routes.AppBase{}
 	app.NewBaseHandler(conn)
-
 	// Create server instance
 	server := http.NewServeMux()
-	server.Handle("/", utils.HandleGet(http.HandlerFunc(app.Home)))
-	server.Handle("/post", utils.HandlePost(http.HandlerFunc(routes.Post)))
+	routes.CreateRoutes(&app, server)
 
 	const port = "3001"
 	fmt.Printf("Starting server at port %s...\n", port)
-
 	if err := http.ListenAndServe(":" + port, server); err != nil {
 		log.Fatalf("Server already started on port %s\n\n", port)
 		log.Fatal(err)
