@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 
@@ -26,7 +25,7 @@ func main() {
 	routes.CreateRoutes(&app, server)
 
 	const port = "3001"
-	fmt.Printf("Starting server at port %s...\n", port)
+	log.Printf("Server started on port %s\n", port)
 	if err := http.ListenAndServe(":" + port, server); err != nil {
 		log.Fatalf("Server already started on port %s\n\n", port)
 		log.Fatal(err)
