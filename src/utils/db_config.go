@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 
 	"github.com/ayaanqui/go-rest-server/src/types"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 func load_db_config() (types.DbConnection, error) {
