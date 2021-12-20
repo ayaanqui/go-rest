@@ -9,13 +9,7 @@ import (
 	"github.com/ayaanqui/go-rest-server/src/utils"
 )
 
-type Home struct {
-	Id string `json:"id"`
-	Message string `json:"message"`
-	Date string `json:"date"`
-}
-
-func select_query(row *sql.Rows, data *Home) error {
+func select_query(row *sql.Rows, data *types.Home) error {
 	var id string
 	var message string
 	var date string
@@ -23,7 +17,7 @@ func select_query(row *sql.Rows, data *Home) error {
 	if err := row.Scan(&id, &message, &date); err != nil {
 		return err
 	}
-	*data = Home{
+	*data = types.Home{
 		Id: id, 
 		Message: message, 
 		Date: date,
@@ -42,9 +36,9 @@ func (app *AppBase) Home(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		parsed_rows := make([]Home, 0)
+		parsed_rows := make([]types.Home, 0)
 		for rows.Next() {
-			var parsed_cols Home
+			var parsed_cols types.Home
 			if err := select_query(rows, &parsed_cols); err != nil {
 				log.Fatal(err)
 				utils.JsonResponse(w, types.Response{Message: "Could not process columns"})
