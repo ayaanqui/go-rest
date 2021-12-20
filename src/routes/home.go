@@ -53,7 +53,6 @@ func (app *AppBase) Home(w http.ResponseWriter, r *http.Request) {
 
 	// Insert message to table
 	if _, err := app.DB.Exec("INSERT INTO home (message) VALUES(?)", message); err != nil {
-		log.Fatal(err)
 		utils.JsonResponse(w, types.Response{Message: "Could not process insert query"})
 		return
 	}
