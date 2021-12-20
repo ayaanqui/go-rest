@@ -6,22 +6,25 @@ import (
 	"net/http"
 
 	"github.com/ayaanqui/go-rest-server/src/routes"
-	"github.com/ayaanqui/go-rest-server/src/types"
 	"github.com/ayaanqui/go-rest-server/src/utils"
 )
 
 func main() {
+	// Attempt connection with DB
 	conn, err := utils.DbConnect()
 	if err != nil {
 		log.Fatal("Could not connect to database.\n", err)
 		return
 	}
 	defer conn.Close()
-	app := types.AppBase{}
+	
+	// Create app base with DB connection
+	app := routes.AppBase{}
 	app.NewBaseHandler(conn)
 
+	// Create server instance
 	server := http.NewServeMux()
-	server.Handle("/", utils.HandleGet(http.HandlerFunc(routes.Home)))
+	server.Handle("/", utils.HandleGet(http.HandlerFunc(app.Home)))
 	server.Handle("/post", utils.HandlePost(http.HandlerFunc(routes.Post)))
 
 	const port = "3001"

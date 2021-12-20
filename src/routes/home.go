@@ -7,7 +7,7 @@ import (
 	"github.com/ayaanqui/go-rest-server/src/utils"
 )
 
-func Home(w http.ResponseWriter, r *http.Request) {
+func (app *AppBase) Home(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "GET" {
 		utils.JsonResponse(w, types.Response{Message: "Only GET request allowed"})
 		return
