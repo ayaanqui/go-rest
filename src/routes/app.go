@@ -31,13 +31,14 @@ func (app *AppBase) NewBaseHandler(conn *sql.DB) {
 	post := `CREATE TABLE IF NOT EXISTS post (
 		id BINARY(16) NOT NULL DEFAULT(
 			UUID_TO_BIN(UUID())
-		) UNIQUE PRIMARY KEY, 
+		) UNIQUE, 
 		title VARCHAR(255) NOT NULL,
-		slug VARCHAR(255) NOT NULL UNIQUE PRIMARY KEY,
+		slug VARCHAR(255) NOT NULL UNIQUE,
 		content TEXT NOT NULL,
 		summary TEXT NOT NULL,
 		date DATETIME NOT NULL DEFAULT(NOW()),
-		updated DATETIME NOT NULL DEFAULT(NOW())
+		updated DATETIME NOT NULL DEFAULT(NOW()),
+		PRIMARY KEY (id, slug)
 	)`
 	if _, err := conn.Exec(post); err != nil {
 		log.Fatal("Could not execute CREATE query for post table.\n", err)
