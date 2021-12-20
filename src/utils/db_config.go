@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io/ioutil"
 
 	"github.com/ayaanqui/go-rest-server/src/types"
@@ -29,6 +30,6 @@ func DbConnect() (*sql.DB, error) {
 	if err != nil {
 		return nil, err
 	}
-	url := config.Username + ":" + config.Password + "@tcp(localhost:3306)/" + config.DbName
+	url := fmt.Sprintf("%s:%s@tcp(localhost:3306)/%s", config.Username, config.Password, config.DbName)
 	return sql.Open("mysql", url)
 }
