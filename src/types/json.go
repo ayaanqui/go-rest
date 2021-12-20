@@ -9,6 +9,10 @@ type Person struct {
 	Age uint `json:"age"`
 }
 
+type Result struct {
+	Data interface{} `json:"data"`
+}
+
 type DbConnection struct {
 	DbName string `json:"db_name"`
 	Username string `json:"username"`
