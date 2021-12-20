@@ -11,6 +11,6 @@ type Person struct {
 
 type DbConnection struct {
 	DbName string `json:"db_name"`
-	Username string `json:"name"`
+	Username string `json:"username"`
 	Password string `json:"password"`
 }

@@ -25,10 +25,10 @@ func load_db_config() (types.DbConnection, error) {
 }
 
 func DbConnect() (*sql.DB, error) {
-	conn, err := load_db_config()
+	config, err := load_db_config()
 	if err != nil {
 		return nil, err
 	}
-	url := conn.Username + ":" + conn.Password + "@tcp(localhost:3306)/" + conn.DbName
+	url := config.Username + ":" + config.Password + "@tcp(localhost:3306)/" + config.DbName
 	return sql.Open("mysql", url)
 }
