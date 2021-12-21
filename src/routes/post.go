@@ -19,15 +19,27 @@ func (app *AppBase) Post(w http.ResponseWriter, r *http.Request) {
 	// Create post
 	slug := strings.ReplaceAll(data.Title, " ", "-")
 	slug = strings.ToLower(slug)
-	_, err := app.DB.Exec("INSERT INTO post (title, slug, summary, content) VALUES(?,?,?,?)", data.Title, slug, data.Summary, data.Content)
+	insert_query := `
+	INSERT INTO post 
+		(title, slug, summary, content) 
+		VALUES (?,?,?,?)
+	`
+	_, err := app.DB.Exec(insert_query, data.Title, slug, data.Summary, data.Content)
 	if err != nil {
 		utils.JsonResponse(w, types.Response{Message: "Could not create post"})
 		return
 	}
 
 	// Return new post
-	query := `SELECT 
-		BIN_TO_UUID(id) as id, title, slug, summary, content, date, updated
+	query := `
+	SELECT 
+		BIN_TO_UUID(id) as id, 
+		title, 
+		slug, 
+		summary, 
+		content, 
+		date, 
+		updated
 	FROM post
 		WHERE slug=? 
 		LIMIT 1
