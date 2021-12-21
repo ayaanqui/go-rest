@@ -2,46 +2,18 @@ package routes
 
 import (
 	"database/sql"
-	"log"
+
+	"gorm.io/gorm"
 )
 
 type AppBase struct {
-	DB *sql.DB
+	DB *gorm.DB
 }
 
 type IAppBase interface {
 	NewBaseHandler(conn *sql.DB)
 }
 
-func (app *AppBase) NewBaseHandler(conn *sql.DB) {
+func (app *AppBase) NewBaseHandler(conn *gorm.DB) {
 	app.DB = conn
-
-	home := `CREATE TABLE IF NOT EXISTS home (
-		id BINARY(16) NOT NULL DEFAULT(
-			UUID_TO_BIN(UUID())
-		) UNIQUE PRIMARY KEY, 
-		message TEXT NOT NULL,
-		date DATETIME NOT NULL DEFAULT(NOW())
-	)`
-	if _, err := conn.Exec(home); err != nil {
-		log.Fatal("Could not execute CREATE query for home table.\n", err)
-		return
-	}
-
-	post := `CREATE TABLE IF NOT EXISTS post (
-		id BINARY(16) NOT NULL DEFAULT(
-			UUID_TO_BIN(UUID())
-		) UNIQUE, 
-		title VARCHAR(255) NOT NULL,
-		slug VARCHAR(255) NOT NULL UNIQUE,
-		content TEXT NOT NULL,
-		summary TEXT NOT NULL,
-		date DATETIME NOT NULL DEFAULT(NOW()),
-		updated DATETIME NOT NULL DEFAULT(NOW()),
-		PRIMARY KEY (id, slug)
-	)`
-	if _, err := conn.Exec(post); err != nil {
-		log.Fatal("Could not execute CREATE query for post table.\n", err)
-		return
-	}
 }

@@ -1,14 +1,14 @@
 package utils
 
 import (
-	"database/sql"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"io/ioutil"
 
 	"github.com/ayaanqui/go-rest-server/src/types"
-	_ "github.com/go-sql-driver/mysql"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
 func load_db_config() (types.DbConnection, error) {
@@ -25,11 +25,11 @@ func load_db_config() (types.DbConnection, error) {
 	return db_config, nil
 }
 
-func DbConnect() (*sql.DB, error) {
+func DbConnect() (*gorm.DB, error) {
 	config, err := load_db_config()
 	if err != nil {
 		return nil, err
 	}
-	url := fmt.Sprintf("%s:%s@tcp(localhost:3306)/%s", config.Username, config.Password, config.DbName)
-	return sql.Open("mysql", url)
+	url := fmt.Sprintf("%s:%s@tcp(localhost:3306)/%s?charset=utf8&parseTime=True&loc=Local", config.Username, config.Password, config.DbName)
+	return gorm.Open(mysql.Open(url), &gorm.Config{})
 }

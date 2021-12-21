@@ -15,7 +15,6 @@ func main() {
 		log.Fatal("Could not connect to database.\n", err)
 		return
 	}
-	defer conn.Close()
 	
 	// Create app base with DB connection
 	app := routes.AppBase{}
