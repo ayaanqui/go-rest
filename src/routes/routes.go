@@ -11,6 +11,6 @@ func CreateRoutes(app *AppBase, server *http.ServeMux) {
 		http.HandlerFunc(app.Home),
 	))
 	server.Handle("/post", utils.HandlePost(
-		http.HandlerFunc(Post),
+		http.HandlerFunc(app.Post),
 	))
 }

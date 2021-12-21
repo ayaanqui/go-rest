@@ -18,3 +18,9 @@ type DbConnection struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
 }
+
+type CreatePost struct {
+	Title string `json:"title"`
+	Content string `json:"content"`
+	Summary string `json:"summary"`
+}
