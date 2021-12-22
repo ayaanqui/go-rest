@@ -30,6 +30,6 @@ func DbConnect() (*gorm.DB, error) {
 	if err != nil {
 		return nil, err
 	}
-	url := fmt.Sprintf("%s:%s@tcp(localhost:3306)/%s?charset=utf8&parseTime=True&loc=Local", config.Username, config.Password, config.DbName)
+	url := fmt.Sprintf("%s:%s@tcp(localhost:3306)/%s", config.Username, config.Password, config.DbName)
 	return gorm.Open(mysql.Open(url), &gorm.Config{})
 }
