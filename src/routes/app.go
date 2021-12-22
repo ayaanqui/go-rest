@@ -3,6 +3,7 @@ package routes
 import (
 	"database/sql"
 
+	"github.com/ayaanqui/go-rest-server/src/types"
 	"gorm.io/gorm"
 )
 
@@ -16,4 +17,7 @@ type IAppBase interface {
 
 func (app *AppBase) NewBaseHandler(conn *gorm.DB) {
 	app.DB = conn
+
+	conn.AutoMigrate(&types.Post{})
+	conn.AutoMigrate(&types.Home{})
 }
