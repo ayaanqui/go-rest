@@ -8,7 +8,6 @@ import (
 )
 
 type Base struct {
-	gorm.Model
 	ID uuid.UUID `gorm:"type:char(36); primary key" json:"id"`
 	CreatedAt time.Time `gorm:"not null" json:"created_at"`
 	UpdatedAt time.Time `gorm:"not null" json:"updated_at"`
