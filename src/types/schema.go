@@ -10,14 +10,14 @@ import (
 type Base struct {
 	gorm.Model
 	ID uuid.UUID `gorm:"type:char(36); primary key" json:"id"`
-	CreatedAt string `gorm:"not null" json:"created_at"`
-	UpdatedAt string `gorm:"not null" json:"updated_at"`
+	CreatedAt time.Time `gorm:"not null" json:"created_at"`
+	UpdatedAt time.Time `gorm:"not null" json:"updated_at"`
 }
 
 func (base *Base) BeforeCreate(tx *gorm.DB) error {
 	base.ID = uuid.New()
-	base.CreatedAt = time.Now().String()
-	base.UpdatedAt = time.Now().String()
+	base.CreatedAt = time.Now()
+	base.UpdatedAt = time.Now()
 	return nil
 }
 
