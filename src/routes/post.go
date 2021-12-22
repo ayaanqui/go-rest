@@ -19,46 +19,12 @@ func (app *AppBase) Post(w http.ResponseWriter, r *http.Request) {
 	// Create post
 	slug := strings.ReplaceAll(data.Title, " ", "-")
 	slug = strings.ToLower(slug)
-	insert_query := `
-	INSERT INTO post 
-		(title, slug, summary, content) 
-		VALUES (?,?,?,?)
-	`
-	_, err := app.DB.Exec(insert_query, data.Title, slug, data.Summary, data.Content)
-	if err != nil {
-		utils.JsonResponse(w, types.Response{Message: "Could not create post"})
-		return
-	}
-
-	// Return new post
-	query := `
-	SELECT 
-		BIN_TO_UUID(id) as id, 
-		title, 
-		slug, 
-		summary, 
-		content, 
-		date, 
-		updated
-	FROM post
-		WHERE slug=? 
-		LIMIT 1
-	`
-	row, err := app.DB.Query(query, slug)
-	if err != nil {
-		utils.JsonResponse(w, types.Response{Message: "Could not fetch post"})
-		return
-	}
-	row.Next()
-	var id, title, summary, content, date, updated string
-	row.Scan(&id, &title, &slug, &summary, &content, &date, &updated)
-	utils.JsonResponse(w, types.Post{
-		Id: id,
-		Title: title,
+	new_post := types.Post{
+		Title: data.Title,
 		Slug: slug,
-		Summary: summary,
-		Content: content,
-		Date: date,
-		Updated: updated,
-	})
+		Summary: data.Summary,
+		Content: data.Content,
+	}
+	app.DB.Create(&new_post)
+	utils.JsonResponse(w, new_post)
 }
