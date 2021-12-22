@@ -10,7 +10,5 @@ func CreateRoutes(app *AppBase, server *http.ServeMux) {
 	server.Handle("/", utils.HandleGet(
 		http.HandlerFunc(app.Home),
 	))
-	server.Handle("/post", utils.HandlePost(
-		http.HandlerFunc(app.Post),
-	))
+	server.HandleFunc("/posts", app.Posts)
 }
