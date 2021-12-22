@@ -17,7 +17,9 @@ func (app *AppBase) Posts(w http.ResponseWriter, r *http.Request) {
 	case "GET":
 		app.get_posts(w, r)
 	default:
-		utils.JsonResponse(w, types.Response{Message: fmt.Sprintf("Method [%s] not allowed", r.Method)})
+		utils.JsonResponse(w, types.Response{
+			Message: fmt.Sprintf("Method [%s] not allowed", r.Method),
+		})
 	}
 }
 
