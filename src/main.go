@@ -22,7 +22,7 @@ func main() {
 	app.NewBaseHandler(conn)
 	// Create router instance
 	router := mux.NewRouter()
-	routes.CreateRoutes(&app, router)
+	app.CreateRoutes(router)
 
 	const port = "3001"
 	log.Printf("Server started on port %s\n", port)

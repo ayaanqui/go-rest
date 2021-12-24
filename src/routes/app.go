@@ -4,6 +4,7 @@ import (
 	"database/sql"
 
 	"github.com/ayaanqui/go-rest-server/src/types"
+	"github.com/gorilla/mux"
 	"gorm.io/gorm"
 )
 
@@ -13,6 +14,7 @@ type AppBase struct {
 
 type IAppBase interface {
 	NewBaseHandler(conn *sql.DB)
+	CreateRoutes(router *mux.Router)
 }
 
 func (app *AppBase) NewBaseHandler(conn *gorm.DB) {
@@ -20,4 +22,12 @@ func (app *AppBase) NewBaseHandler(conn *gorm.DB) {
 
 	conn.AutoMigrate(&types.Post{})
 	conn.AutoMigrate(&types.Home{})
+}
+
+// Create routes given a gorilla/mux router instance
+func (app *AppBase) CreateRoutes(router *mux.Router) {
+	router.HandleFunc("/", app.Home).Methods("GET")
+	router.HandleFunc("/posts", app.CreatePost).Methods("POST")
+	router.HandleFunc("/posts", app.GetPosts).Methods("GET")
+	router.HandleFunc("/posts/{id}", app.GetPostFromId).Methods("GET")
 }
