@@ -31,3 +31,9 @@ func (app *AppBase) CreateRoutes(router *mux.Router) {
 	router.HandleFunc("/posts", app.GetPosts).Methods("GET")
 	router.HandleFunc("/posts/{id}", app.GetPostFromId).Methods("GET")
 }
+
+func New(conn *gorm.DB) *AppBase {
+	app := AppBase{}
+	app.NewBaseHandler(conn)
+	return &app
+}

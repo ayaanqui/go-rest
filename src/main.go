@@ -17,11 +17,10 @@ func main() {
 		return
 	}
 	
-	// Create app base with DB connection
-	app := routes.AppBase{}
-	app.NewBaseHandler(conn)
 	// Create router instance
 	router := mux.NewRouter()
+	// Create app base with DB connection
+	app := routes.New(conn)
 	app.CreateRoutes(router)
 
 	const port = "3001"
