@@ -6,6 +6,7 @@ import (
 
 	"github.com/ayaanqui/go-rest-server/src/routes"
 	"github.com/ayaanqui/go-rest-server/src/utils"
+	"github.com/gorilla/mux"
 )
 
 func main() {
@@ -19,13 +20,13 @@ func main() {
 	// Create app base with DB connection
 	app := routes.AppBase{}
 	app.NewBaseHandler(conn)
-	// Create server instance
-	server := http.NewServeMux()
-	routes.CreateRoutes(&app, server)
+	// Create router instance
+	router := mux.NewRouter()
+	routes.CreateRoutes(&app, router)
 
 	const port = "3001"
 	log.Printf("Server started on port %s\n", port)
-	if err := http.ListenAndServe(":" + port, server); err != nil {
+	if err := http.ListenAndServe(":" + port, router); err != nil {
 		log.Fatalf("Server already started on port %s\n\n", port)
 		log.Fatal(err)
 	}

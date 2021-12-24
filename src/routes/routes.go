@@ -1,14 +1,11 @@
 package routes
 
 import (
-	"net/http"
-
-	"github.com/ayaanqui/go-rest-server/src/utils"
+	"github.com/gorilla/mux"
 )
 
-func CreateRoutes(app *AppBase, server *http.ServeMux) {
-	server.Handle("/", utils.HandleGet(
-		http.HandlerFunc(app.Home),
-	))
-	server.HandleFunc("/posts", app.Posts)
+func CreateRoutes(app *AppBase, router *mux.Router) {
+	router.HandleFunc("/", app.Home).Methods("GET")
+	router.HandleFunc("/posts", app.CreatePost).Methods("POST")
+	router.HandleFunc("/posts", app.GetPosts).Methods("GET")
 }
