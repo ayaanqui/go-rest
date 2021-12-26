@@ -21,6 +21,11 @@ func (base *Base) BeforeCreate(tx *gorm.DB) error {
 	return nil
 }
 
+func (base *Base) BeforeUpdate(tx *gorm.DB) error {
+	base.UpdatedAt = time.Now()
+	return nil
+}
+
 type Post struct {
 	Base
 	Title string `gorm:"not null" json:"title"`
