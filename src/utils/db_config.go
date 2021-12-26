@@ -7,7 +7,7 @@ import (
 	"io/ioutil"
 
 	"github.com/ayaanqui/go-rest-server/src/types"
-	"gorm.io/driver/mysql"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
@@ -30,6 +30,11 @@ func DbConnect() (*gorm.DB, error) {
 	if err != nil {
 		return nil, err
 	}
-	url := fmt.Sprintf("%s:%s@tcp(localhost:3306)/%s?parseTime=true", config.Username, config.Password, config.DbName)
-	return gorm.Open(mysql.Open(url), &gorm.Config{})
+	dns := fmt.Sprintf(
+		"host=localhost user=%s password=%s dbname=%s port=5432 sslmode=disable TimeZone=America/Chicago", 
+		config.Username, 
+		config.Password, 
+		config.DbName,
+	)
+	return gorm.Open(postgres.Open(dns), &gorm.Config{})
 }
