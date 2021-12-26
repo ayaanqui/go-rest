@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
 
@@ -37,8 +38,18 @@ type User struct {
 	Base
 	Username string `gorm:"varchar(30); not null; index; unique" json:"username"`
 	Email string `gorm:"varchar(255); not null; index; unique" json:"email"`
-	// Ignore field from json output
+	// Ignore password field from json output
 	Password string `gorm:"varchar(255); not null; index" json:"-"`
 	IsAdmin bool `gorm:"default: false" json:"is_admin"`
 	IsActive bool `gorm:"default: false" json:"is_active"`
+}
+
+// Hashes password using the bcrypt library
+func (user *User) BeforeCreate(tx *gorm.DB) error {
+	hash, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.MinCost)
+	if err != nil {
+		return err
+	}
+	user.Password = string(hash)
+	return nil
 }
