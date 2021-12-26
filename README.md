@@ -1,11 +1,11 @@
 # 🖥 Go REST API
 
-A simple REST API made using the standard Go library [`net/http`](https://pkg.go.dev/net/http) and MySQL as the database. 
+A simple REST API made using the standard Go library [`net/http`](https://pkg.go.dev/net/http) and PostgreSQL as the database. 
 
 ## Instructions
 
 ### Set up `db_config.json`
-This project also uses a MySQL database in order to run. To start, create a file called `db_config.json` in the project root and place the following in the file, replacing all content within the `[]` with the correct database values:
+This project also uses a PostgreSQL database in order to run. To start, create a file called `db_config.json` in the project root and place the following in the file, replacing all content within the `[]` with the correct database values:
 
 ```json
 {
