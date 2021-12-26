@@ -32,3 +32,13 @@ type Home struct {
 	Base
 	Message string `gorm:"type:text; not null" json:"message"`
 }
+
+type User struct {
+	Base
+	Username string `gorm:"varchar(30); not null; index; unique" json:"username"`
+	Email string `gorm:"varchar(255); not null; index; unique" json:"email"`
+	// Ignore field from json output
+	Password string `gorm:"varchar(255); not null; index" json:"-"`
+	IsAdmin bool `gorm:"default: false" json:"is_admin"`
+	IsActive bool `gorm:"default: false" json:"is_active"`
+}

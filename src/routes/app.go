@@ -2,6 +2,7 @@ package routes
 
 import (
 	"database/sql"
+	"log"
 
 	"github.com/ayaanqui/go-rest-server/src/types"
 	"github.com/gorilla/mux"
@@ -20,8 +21,15 @@ type IAppBase interface {
 func (app *AppBase) NewBaseHandler(conn *gorm.DB) *AppBase {
 	app.DB = conn
 
-	conn.AutoMigrate(&types.Post{})
-	conn.AutoMigrate(&types.Home{})
+	err := conn.AutoMigrate(
+		&types.Post{}, 
+		&types.Home{},
+		&types.User{},
+	)
+	if err != nil {
+		log.Fatal("Could not generate schema.\n")
+		panic(err)
+	}
 	return app
 }
 
