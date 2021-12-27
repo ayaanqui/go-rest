@@ -12,7 +12,7 @@ import (
 )
 
 func (app *AppBase) GetPosts(w http.ResponseWriter, r *http.Request) {
-	posts := make([]types.Post, 0)
+	posts := new([]types.Post)
 	app.DB.Table("posts").Find(&posts)
 	utils.JsonResponse(w, types.Result{Data: &posts})
 }
