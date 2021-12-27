@@ -24,3 +24,9 @@ type CreatePost struct {
 	Content string `json:"content"`
 	Summary string `json:"summary"`
 }
+
+type CreateUser struct {
+	Username string `json:"username"`
+	Email string `json:"email"`
+	Password string `json:"password"`
+}

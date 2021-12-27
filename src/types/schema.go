@@ -51,6 +51,7 @@ type User struct {
 
 // Hashes password using the bcrypt library
 func (user *User) BeforeCreate(tx *gorm.DB) error {
+	user.Base.BeforeCreate(tx) // Call base BeforeCreate first
 	hash, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.MinCost)
 	if err != nil {
 		return err
