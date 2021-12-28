@@ -4,11 +4,6 @@ type Response struct {
 	Message string `json:"message"`
 }
 
-type Person struct {
-	Name string `json:"name"`
-	Age uint `json:"age"`
-}
-
 type Result struct {
 	Data interface{} `json:"data"`
 }
@@ -38,4 +33,9 @@ type LoginUser struct {
 
 type Tokens struct {
 	JwtKey string `json:"jwt_key"`
+}
+
+type Auth struct {
+	User User `json:"user"`
+	Token string `json:"token"`
 }
