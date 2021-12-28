@@ -5,12 +5,14 @@ import (
 	"log"
 
 	"github.com/ayaanqui/go-rest-server/src/types"
+	"github.com/ayaanqui/go-rest-server/src/utils"
 	"github.com/gorilla/mux"
 	"gorm.io/gorm"
 )
 
 type AppBase struct {
 	DB *gorm.DB
+	Tokens types.Tokens
 }
 
 type IAppBase interface {
@@ -20,6 +22,11 @@ type IAppBase interface {
 
 func (app *AppBase) NewBaseHandler(conn *gorm.DB) *AppBase {
 	app.DB = conn
+	tokens, tokens_err := utils.ParseTokens()
+	if tokens_err != nil {
+		panic(tokens_err)
+	}
+	app.Tokens = tokens
 
 	err := conn.AutoMigrate(
 		&types.Post{}, 
@@ -28,7 +35,7 @@ func (app *AppBase) NewBaseHandler(conn *gorm.DB) *AppBase {
 	)
 	if err != nil {
 		log.Fatal("Could not generate schema.\n")
-		panic(err)
+		panic(tokens_err)
 	}
 	return app
 }

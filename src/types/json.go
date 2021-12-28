@@ -35,3 +35,7 @@ type LoginUser struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
 }
+
+type Tokens struct {
+	JwtKey string `json:"jwt_key"`
+}
