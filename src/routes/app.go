@@ -40,6 +40,7 @@ func (app *AppBase) CreateRoutes(router *mux.Router) *AppBase {
 	router.HandleFunc("/posts", app.GetPosts).Methods("GET")
 	router.HandleFunc("/posts/{id}", app.GetPostFromId).Methods("GET")
 	router.HandleFunc("/register", app.Register).Methods("POST")
+	router.HandleFunc("/login", app.Login).Methods("POST")
 	return app
 }
 
