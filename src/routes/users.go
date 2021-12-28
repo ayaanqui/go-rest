@@ -11,6 +11,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+// [POST] /register controller
 func (app *AppBase) Register(w http.ResponseWriter, r *http.Request) {
 	post_user := types.CreateUser{}
 	if err := json.NewDecoder(r.Body).Decode(&post_user); err != nil {
@@ -45,6 +46,7 @@ func (app *AppBase) Register(w http.ResponseWriter, r *http.Request) {
 	utils.JsonResponse(w, &new_user)
 }
 
+// [POST] /login controller
 func (app *AppBase) Login(w http.ResponseWriter, r *http.Request) {
 	login := types.LoginUser{}
 	if err := json.NewDecoder(r.Body).Decode(&login); err != nil {
