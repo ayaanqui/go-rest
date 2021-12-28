@@ -99,3 +99,9 @@ func generate_token(key []byte, user *types.User) (string, error) {
 	}
 	return token, nil
 }
+
+// [GET] /me controller
+func (app *AppBase) Profile(w http.ResponseWriter, r *http.Request) {
+	auth := r.Context().Value(types.AuthKey).(types.Auth)
+	utils.JsonResponse(w, auth.User)
+}

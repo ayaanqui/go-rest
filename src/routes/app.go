@@ -3,6 +3,7 @@ package routes
 import (
 	"database/sql"
 	"log"
+	"net/http"
 
 	"github.com/ayaanqui/go-rest-server/src/types"
 	"github.com/ayaanqui/go-rest-server/src/utils"
@@ -48,6 +49,7 @@ func (app *AppBase) CreateRoutes(router *mux.Router) *AppBase {
 	router.HandleFunc("/posts/{id}", app.GetPostFromId).Methods("GET")
 	router.HandleFunc("/register", app.Register).Methods("POST")
 	router.HandleFunc("/login", app.Login).Methods("POST")
+	router.Handle("/me", UseJwtAuth(app, http.HandlerFunc(app.Profile))).Methods("GET")
 	return app
 }
 
