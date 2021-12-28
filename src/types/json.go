@@ -31,8 +31,17 @@ type LoginUser struct {
 	Password string `json:"password"`
 }
 
+type TwitterKeys struct {
+	ApiKey string `json:"api_key"`
+	ApiKeySecret string `json:"api_key_secret"`
+	BearerToken string `json:"bearer_token"`
+	AccessToken string `json:"access_token"`
+	AccessTokenSecret string `json:"access_token_secret"`
+}
+
 type Tokens struct {
 	JwtKey string `json:"jwt_key"`
+	Twitter TwitterKeys `json:"twitter"`
 }
 
 type Auth struct {
