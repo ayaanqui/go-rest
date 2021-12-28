@@ -4,7 +4,9 @@ A simple REST API made using the standard Go library [`net/http`](https://pkg.go
 
 ## Instructions
 
-### Set up `db_config.json`
+### Set up config files
+
+#### `db_config.json`
 This project also uses a PostgreSQL database in order to run. To start, create a file called `db_config.json` in the project root and place the following in the file, replacing all content within the `[]` with the correct database values:
 
 ```json
@@ -12,6 +14,15 @@ This project also uses a PostgreSQL database in order to run. To start, create a
     "db_name": "[database name]",
     "username": "[database username]",
     "password": "[database password]"
+}
+```
+
+#### `tokens.json`
+
+In addition to the `db_config.json`, you will also need to create a `tokens.json` file which will hold the JWT secret, note that this token should be a randomly generated value and must not be made public. The `token.json` file should contain the following:
+```json
+{
+    "jwt_key": "[YOUR_SECRET_TOKEN]"
 }
 ```
 
