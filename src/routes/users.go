@@ -6,6 +6,7 @@ import (
 
 	"github.com/ayaanqui/go-rest-server/src/types"
 	"github.com/ayaanqui/go-rest-server/src/utils"
+	"github.com/golang-jwt/jwt"
 	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -52,6 +53,7 @@ func (app *AppBase) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Fetch user with username field
 	const message string = "Username or password is incorrect"
 	user := types.User{}
 	app.DB.Table("users").Find(&user, "username = ? OR email = ?", login.Username, login.Username)
@@ -61,11 +63,37 @@ func (app *AppBase) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Compare password
 	err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(login.Password))
 	if err != nil {
 		w.WriteHeader(400)
 		utils.JsonResponse(w, types.Response{Message: message})
 		return
 	}
-	utils.JsonResponse(w, types.Response{Message: "Logged in successfully!"})
+	
+	// Generate JWT token
+	token, err := generate_token([]byte(app.Tokens.JwtKey), &user)
+	if err != nil {
+		w.WriteHeader(400)
+		utils.JsonResponse(w, types.Response{Message: "Could not generate token"})
+		return
+	}
+	utils.JsonResponse(w, types.Auth{
+		Token: token,
+		User: user,
+	})
+}
+
+func generate_token(key []byte, user *types.User) (string, error) {
+	jwt := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"id": user.ID,
+		"username": user.Username,
+		"email": user.Email,
+		"is_active": user.IsActive,
+	})
+	token, err := jwt.SignedString(key)
+	if err != nil {
+		return "", err
+	}
+	return token, nil
 }
