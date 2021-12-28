@@ -1,4 +1,5 @@
 package types
 
 const NameKey string = "name"
-const AuthKey string = "auth"
+type AuthKeyType string
+const AuthKey AuthKeyType = "auth"
