@@ -44,7 +44,7 @@ type User struct {
 	Username string `gorm:"varchar(30); not null; index; unique" json:"username"`
 	Email string `gorm:"varchar(255); not null; index; unique" json:"email"`
 	// Ignore password field from json output
-	Password string `gorm:"varchar(255); not null; index" json:"-"`
+	Password string `gorm:"varchar(255); index" json:"-"`
 	IsAdmin bool `gorm:"default: false" json:"is_admin"`
 	IsActive bool `gorm:"default: false" json:"is_active"`
 }
