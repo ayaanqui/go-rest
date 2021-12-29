@@ -8,12 +8,12 @@ import (
 	"github.com/markbates/goth/gothic"
 )
 
-// [GET] /auth/twitter
+// [GET] /auth/{provider}
 func (app *AppBase) Auth(w http.ResponseWriter, r *http.Request) {
 	gothic.BeginAuthHandler(w, r)
 }
 
-// [GET] /auth/twitter/callback
+// [GET] /auth/{provider}/callback
 func (app *AppBase) AuthCallback(w http.ResponseWriter, r *http.Request) {
 	user, err := gothic.CompleteUserAuth(w, r)
 	if err != nil {
