@@ -11,7 +11,7 @@ func (app *AppBase) Home(w http.ResponseWriter, r *http.Request) {
 	message := r.URL.Query().Get("message")
 	if message == "" {
 		// Show all messages in home table
-		result := make([]types.Home, 0)
+		result := new([]types.Home)
 		app.DB.Table("homes").Select("id", "created_at", "updated_at", "message").Scan(&result)
 		utils.JsonResponse(w, types.Result{Data: result})
 		return
