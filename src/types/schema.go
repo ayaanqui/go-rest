@@ -34,11 +34,6 @@ type Post struct {
 	Summary string `gorm:"not null; default: ''" json:"summary"`
 }
 
-type Home struct {
-	Base
-	Message string `gorm:"type:text; not null" json:"message"`
-}
-
 type User struct {
 	Base
 	Username string `gorm:"varchar(30); not null; index; unique" json:"username"`

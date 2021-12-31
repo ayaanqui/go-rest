@@ -32,8 +32,7 @@ func (app *AppBase) NewBaseHandler(conn *gorm.DB) *AppBase {
 	app.Tokens = tokens
 
 	err := conn.AutoMigrate(
-		&types.Post{}, 
-		&types.Home{},
+		&types.Post{},
 		&types.User{},
 	)
 	if err != nil {
