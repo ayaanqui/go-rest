@@ -18,7 +18,7 @@ func UseJwtAuth(app *AppBase, next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		authorization := r.Header.Get("Authorization")
 		// Parse bearer token
-		raw_token, err := get_bearer_token(authorization)
+		raw_token, err := GetBearerToken(authorization)
 		if err != nil {
 			w.WriteHeader(401)
 			utils.JsonResponse(w, types.Response{Message: AUTH_REQ})
@@ -26,7 +26,7 @@ func UseJwtAuth(app *AppBase, next http.Handler) http.Handler {
 		}
 
 		// Parse JWT
-		claims, err := get_jwt_claims(raw_token, app.Tokens.JwtKey)
+		claims, err := GetJwtClaims(raw_token, app.Tokens.JwtKey)
 		if err != nil {
 			w.WriteHeader(401)
 			utils.JsonResponse(w, types.Response{Message: AUTH_REQ})
@@ -57,7 +57,7 @@ func UseJwtAuth(app *AppBase, next http.Handler) http.Handler {
 }
 
 // Given a bearer token ("Bearer <TOKEN>") returns the token or an error if parsing was unsuccessful
-func get_bearer_token(authorization string) (string, error) {
+func GetBearerToken(authorization string) (string, error) {
 	parsed_authorization := strings.Split(authorization, " ")
 	if parsed_authorization[0] != "Bearer" || len(parsed_authorization) < 2 {
 		return "", fmt.Errorf("could not parse bearer token")
@@ -67,7 +67,7 @@ func get_bearer_token(authorization string) (string, error) {
 }
 
 // Given a raw jwt token and an encryption key return the mapped jwt claims or an error
-func get_jwt_claims(jwt_token string, key string) (jwt.MapClaims, error) {
+func GetJwtClaims(jwt_token string, key string) (jwt.MapClaims, error) {
 	token, token_err := jwt.Parse(jwt_token, func(t *jwt.Token) (interface{}, error) {
 		if _, ok := t.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("invalid signing method")
