@@ -67,3 +67,18 @@ func GetJwtClaims(jwt_token string, key string) (jwt.MapClaims, error) {
 	}
 	return claims, nil
 }
+
+// Generates a JWT with claims, signed with key
+func GenerateTokens(key string, user *types.User) (string, error) {
+	jwt := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"id": user.ID,
+		"username": user.Username,
+		"email": user.Email,
+		"is_active": user.IsActive,
+	})
+	token, err := jwt.SignedString([]byte(key))
+	if err != nil {
+		return "", err
+	}
+	return token, nil
+}

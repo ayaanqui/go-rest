@@ -6,7 +6,6 @@ import (
 
 	"github.com/ayaanqui/go-rest-server/src/types"
 	"github.com/ayaanqui/go-rest-server/src/utils"
-	"github.com/golang-jwt/jwt"
 	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -74,7 +73,7 @@ func (app *AppBase) Login(w http.ResponseWriter, r *http.Request) {
 	}
 	
 	// Generate JWT token
-	token, err := generate_token([]byte(app.Tokens.JwtKey), &user)
+	token, err := utils.GenerateTokens(app.Tokens.JwtKey, &user)
 	if err != nil {
 		w.WriteHeader(400)
 		utils.JsonResponse(w, types.Response{Message: "Could not generate token"})
@@ -84,20 +83,6 @@ func (app *AppBase) Login(w http.ResponseWriter, r *http.Request) {
 		Token: token,
 		User: user,
 	})
-}
-
-func generate_token(key []byte, user *types.User) (string, error) {
-	jwt := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"id": user.ID,
-		"username": user.Username,
-		"email": user.Email,
-		"is_active": user.IsActive,
-	})
-	token, err := jwt.SignedString(key)
-	if err != nil {
-		return "", err
-	}
-	return token, nil
 }
 
 // [GET] /me controller
