@@ -73,7 +73,7 @@ func (app *AppBase) Login(w http.ResponseWriter, r *http.Request) {
 	}
 	
 	// Generate JWT token
-	token, err := utils.GenerateTokens(app.Tokens.JwtKey, &user)
+	token, err := utils.GenerateJWT(app.Tokens.JwtKey, &user)
 	if err != nil {
 		w.WriteHeader(400)
 		utils.JsonResponse(w, types.Response{Message: "Could not generate token"})

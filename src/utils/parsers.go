@@ -69,7 +69,7 @@ func GetJwtClaims(jwt_token string, key string) (jwt.MapClaims, error) {
 }
 
 // Generates a JWT with claims, signed with key
-func GenerateTokens(key string, user *types.User) (string, error) {
+func GenerateJWT(key string, user *types.User) (string, error) {
 	jwt := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"id": user.ID,
 		"username": user.Username,
