@@ -3,7 +3,9 @@ package tests
 import (
 	"testing"
 
+	"github.com/ayaanqui/go-rest-server/src/types"
 	"github.com/ayaanqui/go-rest-server/src/utils"
+	"github.com/google/uuid"
 )
 
 func TestGetBearerToken(t *testing.T) {
@@ -62,6 +64,24 @@ func TestGetJwtClaims(t *testing.T) {
         jwt := "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE2NDIzOTc5OTksImV4cCI6MTY3MzkzMzk5OSwiYXVkIjoid3d3LmV4YW1wbGUuY29tIiwic3ViIjoianJvY2tldEBleGFtcGxlLmNvbSIsImBtYWlsIjoiZXhhbXBsZUBlbWFpbC5jb20iLCJ1c2VybmFtZSI6ImV4YW1wbGUifQ.Ohw7jfG65CzgiTB-DZMVoKl67APTeJrwrmHd3Ex9KX0"
 
         if _, err := utils.GetJwtClaims(jwt, key); err == nil {
+            t.Fail()
+        }
+    }
+}
+
+func TestGenerateTokens(t *testing.T) {
+    {
+        user := types.User{
+            Base: types.Base{
+                ID: uuid.New(),
+            },
+            Email: "johndoe@example.com",
+            Username: "john_doe",
+        }
+        jwt1, err1 := utils.GenerateJWT("123", &user)
+        jwt2, err2 := utils.GenerateJWT("1234", &user)
+
+        if err1 != nil || err2 != nil || jwt1 == jwt2 {
             t.Fail()
         }
     }
