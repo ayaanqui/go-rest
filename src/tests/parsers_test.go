@@ -10,7 +10,7 @@ import (
 
 func TestGetBearerToken(t *testing.T) {
     // Test properly formatted authorization field
-	{
+    {
         token1, err := utils.GetBearerToken("Bearer my_token")
         if token1 != "my_token" && err == nil {
             t.Errorf("did not parse bearer token properly")
