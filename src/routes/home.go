@@ -3,8 +3,8 @@ package routes
 import (
 	"net/http"
 
-	"github.com/ayaanqui/go-rest-server/src/types"
-	"github.com/ayaanqui/go-rest-server/src/utils"
+	"github.com/ayaanqui/go-rest/src/types"
+	"github.com/ayaanqui/go-rest/src/utils"
 )
 
 func (app *AppBase) Home(w http.ResponseWriter, r *http.Request) {

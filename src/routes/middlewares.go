@@ -4,8 +4,8 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/ayaanqui/go-rest-server/src/types"
-	"github.com/ayaanqui/go-rest-server/src/utils"
+	"github.com/ayaanqui/go-rest/src/types"
+	"github.com/ayaanqui/go-rest/src/utils"
 	"github.com/google/uuid"
 )
 

@@ -1,4 +1,4 @@
-module github.com/ayaanqui/go-rest-server
+module github.com/ayaanqui/go-rest
 
 go 1.16
 
