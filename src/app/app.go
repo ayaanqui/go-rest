@@ -28,6 +28,7 @@ func (app *AppBase) NewBaseHandler(conn *gorm.DB) *AppBase {
 	}
 	app.Tokens = tokens
 
+	// database
 	err := conn.AutoMigrate(
 		&types.Post{},
 		&types.User{},
@@ -36,6 +37,10 @@ func (app *AppBase) NewBaseHandler(conn *gorm.DB) *AppBase {
 		log.Fatal("Could not generate schema.\n")
 		panic(tokens_err)
 	}
+
+	// oauth providers
+	app.SetupOauthProviders()
+
 	return app
 }
 
