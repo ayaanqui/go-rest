@@ -1,0 +1,28 @@
+{
+  "name": "go-rest",
+  "version": "1.0.0",
+  "description": "A simple REST API made using the standard Go library [`net/http`](https://pkg.go.dev/net/http) and PostgreSQL as the database.",
+  "main": "index.js",
+  "scripts": {
+    "create-release": "semantic-release"
+  },
+  "devDependencies": {
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/commit-analyzer": "^9.0.2",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^8.0.2",
+    "@semantic-release/npm": "^9.0.0",
+    "@semantic-release/release-notes-generator": "^10.0.3",
+    "semantic-release": "^19.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ayaanqui/go-rest.git"
+  },
+  "author": "Ayaan Siddiqui",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ayaanqui/go-rest/issues"
+  },
+  "homepage": "https://github.com/ayaanqui/go-rest#readme"
+}
