@@ -23,8 +23,8 @@ func main() {
 	server := app.New(conn)
 	server.CreateRoutes(router)
 
-	const port = "3001"
-	log.Printf("Server started on port %s\n", port)
+	const port = "8080"
+	log.Printf("🚀 server started on port %s\n", port)
 	if err := http.ListenAndServe(":" + port, router); err != nil {
 		log.Fatalf("Server already started on port %s\n\n", port)
 		log.Fatal(err)
