@@ -2,7 +2,6 @@ package app
 
 import (
 	"database/sql"
-	"log"
 
 	"github.com/ayaanqui/go-rest/src/types"
 	"github.com/ayaanqui/go-rest/src/utils"
@@ -28,19 +27,8 @@ func (app *AppBase) NewBaseHandler(conn *gorm.DB) *AppBase {
 	}
 	app.Tokens = tokens
 
-	// database
-	err := conn.AutoMigrate(
-		&types.Post{},
-		&types.User{},
-	)
-	if err != nil {
-		log.Fatal("Could not generate schema.\n")
-		panic(tokens_err)
-	}
-
-	// oauth providers
-	app.SetupOauthProviders()
-
+	app.CreateSchemas() // create schemas
+	app.SetupOauthProviders() // oauth providers
 	return app
 }
 
