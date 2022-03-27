@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/ayaanqui/go-rest/compare/1.0.0...1.1.0) (2022-03-27)
+
+
+### Features
+
+* change server success message ([9506cd3](https://github.com/ayaanqui/go-rest/commit/9506cd3067de2b062ef7b7d297742283951e491e))
+
 # 1.0.0 (2022-03-26)
 
 
