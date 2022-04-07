@@ -36,9 +36,7 @@ In addition to the `db_config.json`, you will also need to create a `tokens.json
     "twitter": {
         "api_key": "[Twitter OAuth 1.0 API Key]",
         "api_key_secret": "[Twitter OAuth 1.0 API Secret]",
-        "bearer_token": "[Twitter OAuth Bearer Token]",
-        "access_token": "[Twitter OAuth Access Token]",
-        "access_token_secret": "[Twitter OAuth Access Token Secret]"
+        "bearer_token": "[Twitter OAuth Bearer Token]"
     }
 }
 ```
